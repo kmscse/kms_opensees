@@ -130,16 +130,19 @@ if ok != 0:
         if Dstep >= 1.0 or ok == 0:
             break
 
+        TestType = 'NormDispIncr'  # Define the TestType variable
+        maxNumIter = 2000
         ok = ops.analyze(1)
 
         if ok != 0:
             print("Trying Newton with Initial Tangent...")
-            ops.test('NormDispIncr', Tol, 2000, 0)
+            ops.test(TestType, Tol, maxNumIter, 0)
             ops.algorithm('Newton', '-initial')
             ok = ops.analyze(1)
             ops.test(TestType, Tol, maxNumIter, 0)
             ops.algorithm(algorithmType)
 
+        algorithmType = 'Newton'  # Define the algorithmType variable
         if ok != 0:
             print("Trying Broyden...")
             ops.algorithm('Broyden', 8)
